@@ -1,0 +1,39 @@
+body, h1, h2, h3, p {
+	margin: 0;
+}
+
+h1, h2, h3 {
+	line-height: 1;
+	font-weight: 900;
+}
+
+h1 {
+	font-size: clamp(3rem, 1rem + 10vw, 7rem);
+}
+
+h2, h3, p {
+	margin-bottom: 1em;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+}
+
+.text-center {
+	text-align: center;
+}
+
+header, section {
+	padding: 4rem 0;
+}
+
+header {
+	min-height: 300px;
+}
+
+.container {
+	padding: 0 1em;
+	max-width: 60rem;
+	margin: 0 auto;
+}

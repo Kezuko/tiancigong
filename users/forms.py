@@ -1,7 +1,8 @@
 from django import forms
-from users.models import AccountUser
+from django.contrib.auth.forms import UserCreationForm
+from .models import AccountUser
 
-class UserRegistrationForm(forms.ModelForm):
+class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField(label='Email", help_text='Enter a valid email address', required=True)
     zip_code = forms.CharField(label='Postal Code', min_length=6, max_length=6, help_text='Enter a 6 digit postal code')
     
