@@ -43,11 +43,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #add applications here
     'main',
-    'users'
+    'users',
+    'crispy_forms'
 ]
 
 AUTH_USER_MODEL = 'users.AccountUser'
 APPEND_SLASH = True
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = 'login'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
