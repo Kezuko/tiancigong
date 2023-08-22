@@ -9,6 +9,7 @@ from django.contrib import messages
 from .decorators import user_not_authenticated
 from .forms import UserRegistrationForm, ProfileForm
 from .tokens import account_activation_token
+from .utilities import chinese_zodiac_sign
 
 #For Email
 from django.template.loader import render_to_string
@@ -18,6 +19,7 @@ from django.utils.encoding import force_bytes, force_str
 from django.core.mail import EmailMessage
 
 from geopy.geocoders import Nominatim
+from lunardate import LunarDate
 
 def activate(request, uidb64, token):
     User = get_user_model()
@@ -112,6 +114,9 @@ def createProfile(request):
         if form.is_valid():
             profile = form.save(commit=False)
             profile.account = request.user
+            lunar_date = LunarDate.fromSolarDate(form.cleaned_data["eng_date_of_birth"].year, form.cleaned_data["eng_date_of_birth"].month, form.cleaned_data["eng_date_of_birth"].day)
+            profile.chi_date_of_birth = "{}-{}-{}".format(lunar_date.year, lunar_date.month, lunar_date.day)
+            profile.zodiac = chinese_zodiac_sign(lunar_date.year)
             profile.save()
             return redirect('homepage')
         else:
@@ -132,4 +137,3 @@ def logoutUser(request):
     logout(request)
     messages.info(request, "Logged out successfully!")
     return redirect('homepage')
-

@@ -40,7 +40,18 @@
 
 					<ul class="nav navbar-nav navbar-right">
 						{% if user.is_authenticated %}
-						<li><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+						<li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> Profile <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								{% if member_profile %}
+								{% for member in member_profile %}
+								<li><a href="#">{{ member.name }}</a></li>
+								{% endfor %}
+								{% else %}
+								<li><a href="{% url 'create_profile' %}"> Create Profile </a></li>
+								{% endif %}
+							</ul>
+						</li>
+						
 						<li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 						{% else %}
 						<li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-log-in"></span> Login / Sign Up <span class="caret"></span></a>

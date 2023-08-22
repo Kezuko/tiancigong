@@ -29,7 +29,7 @@ class Member(models.Model):
     name = models.CharField(max_length=255,null=False, blank=False)
     eng_date_of_birth = models.DateField(null=False, blank=False)
     chi_date_of_birth = models.DateField(null=False, blank=False)
-    zodiac = models.IntegerField(null=False, blank=False, validators=[MinValueValidator(1),MaxValueValidator(12)])
+    zodiac = models.CharField(null=False, blank=False, max_length=50)
     
     def __str__(self):
         return self.name
