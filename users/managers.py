@@ -3,8 +3,6 @@ from django.contrib.auth.base_user import BaseUserManager
 from geopy.geocoders import Nominatim
 
 class AccountUserManager(BaseUserManager):
-    use_in_migrations = True
-    
     def _create_user(self, email, password, **extra_fields):
         if not email:
             raise ValueError('Users require an email field')
@@ -12,10 +10,8 @@ class AccountUserManager(BaseUserManager):
         if not extra_fields.get('zip_code'):
             raise ValueError('Users require a postal code')
             
-        geolocator = Nominatim(user_agent="geoapiExercises")
         email = self.normalize_email(email)
-        address = geolocator.geocode(extra_fields.get('zip_code'))
-        user = self.model(email=email, address=address, **extra_fields)
+        user = self.model(email=email, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user

@@ -1,0 +1,9 @@
+{% autoescape off %}
+Hello New User,
+
+Your New Member ID is: {{ member_id }}
+
+Please click on the link below to confirm your registration:
+
+{{ protocol }}://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+{% endautoescape %}

@@ -3,7 +3,7 @@
 {% load crispy_forms_tags %}
 
 {% block stylesheets %}
-<link rel="stylesheet" type="text/css" href="{% static 'users/login.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'users/register.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -13,20 +13,19 @@
 			<form method="POST">
 				{% csrf_token %}
 				<fieldset class="form-group">
-					<legend class="border-bottom mb-4">Log In</legend>
-						{{ form|crispy }}
-					</div>
+					<legend class="border-bottom mb-4">Join Today</legend>
+					{{ form|crispy }}
 				</fieldset>
+
+				By registering, you accept the Terms of Service and Privacy Notice
+
 				<div class="form-group">
-					<button class="btn btn-outline-info" type="submit">Login</button>
+					<button class="btn btn-outline-info" type="submit">Sign Up</button>
 				</div>
 			</form>
 			<div class="border-top pt-3">
 				<small class="text-muted">
-					Need An Account? <a class="ml-2" href="{% url 'register' %}">Sign Up Now</a>
-				</small><br>
-				<small class="text-muted">
-					<a href="/">Forgot password?</a>
+					Already Have An Account? <a class="ml-2" href="/login">Sign In</a>
 				</small>
 			</div>
 		</div>

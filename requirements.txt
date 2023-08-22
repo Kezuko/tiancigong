@@ -9,3 +9,5 @@ sqlparse==0.2.4
 typing_extensions==4.7.1
 tzdata==2023.3
 django-crispy-forms==1.14.0
+requests==2.26.0
+six==1.15.0
