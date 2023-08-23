@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     #add applications here
     'main',
     'users',
-    'crispy_forms'
+    'crispy_forms',
+    'services'
 ]
 
 AUTH_USER_MODEL = 'users.AccountUser'

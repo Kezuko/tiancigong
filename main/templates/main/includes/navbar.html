@@ -20,7 +20,13 @@
 								<li><a href="#">About Six</a></li>
 							</ul>
 						</li>
-						<li><a href="#">Welcome</a></li>
+						{% if user.is_authenticated %}
+						{% if user.is_staff %}
+						<li><a href="#">Search Tickets</a></li>
+						{% else %}
+						<li><a href="#">View Tickets</a></li>
+						{% endif %}
+						{% endif %}
 						<li><a href="#">Services</a></li>
 						<li><a href="#">Gallery</a></li>
 						<li><a href="#">Contact Us</a></li>
