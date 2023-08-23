@@ -32,13 +32,14 @@ class UserRegistrationForm(UserCreationForm):
 class ProfileForm(ModelForm):
     class Meta:
         model = Member
-        fields = ["name", "eng_date_of_birth"]
+        fields = ["eng_name", "chi_name", "eng_date_of_birth"]
         widgets = {
             'eng_date_of_birth': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
         }
         labels = {
             'eng_date_of_birth': 'Date-of-birth (eng)',
-            'name': 'Name'
+            'eng_name': 'English Name',
+            'chi_name': 'Chinese Name'
         }
         
     def clean_eng_date_of_birth(self):

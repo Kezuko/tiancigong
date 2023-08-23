@@ -44,7 +44,7 @@
 							<ul class="dropdown-menu">
 								{% if member_profile %}
 								{% for member in member_profile %}
-								<li><a href="#">{{ member.name }}</a></li>
+								<li><a href="#">{{ member.eng_name }}</a></li>
 								{% endfor %}
 								{% else %}
 								<li><a href="{% url 'create_profile' %}"> Create Profile </a></li>

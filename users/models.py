@@ -26,10 +26,11 @@ class AccountUser(AbstractBaseUser, PermissionsMixin):
     
 class Member(models.Model):
     account = models.ForeignKey('AccountUser', on_delete=models.CASCADE)
-    name = models.CharField(max_length=255,null=False, blank=False)
+    eng_name = models.CharField(max_length=255,null=False, blank=False)
+    chi_name = models.CharField(max_length=255,null=False, blank=False)
     eng_date_of_birth = models.DateField(null=False, blank=False)
     chi_date_of_birth = models.DateField(null=False, blank=False)
     zodiac = models.CharField(null=False, blank=False, max_length=50)
     
     def __str__(self):
-        return self.name
+        return self.eng_name
