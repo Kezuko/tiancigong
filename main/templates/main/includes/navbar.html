@@ -40,11 +40,11 @@
 
 					<ul class="nav navbar-nav navbar-right">
 						{% if user.is_authenticated %}
-						<li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> Profile <span class="caret"></span></a>
+						<li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> Manage Profiles <span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								{% if member_profile %}
 								{% for member in member_profile %}
-								<li><a href="#">{{ member.eng_name }}</a></li>
+								<li><a href="{% url 'services' eng_name=member.eng_name %}">{{ member.eng_name }}</a></li>
 								{% endfor %}
 								{% else %}
 								<li><a href="{% url 'create_profile' %}"> Create Profile </a></li>
