@@ -45,8 +45,13 @@ INSTALLED_APPS = [
     'main',
     'users',
     'crispy_forms',
-    'services'
+    'services',
+    'captcha'
 ]
+
+RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
+RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
+SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
 
 AUTH_USER_MODEL = 'users.AccountUser'
 APPEND_SLASH = True

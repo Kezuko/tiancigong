@@ -1,6 +1,5 @@
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -8,7 +7,7 @@ from django.db.models.query_utils import Q
 
 #Custom Imports
 from .decorators import user_not_authenticated
-from .forms import UserRegistrationForm, ProfileForm, SetPasswordForm, PasswordResetForm
+from .forms import UserRegistrationForm, ProfileForm, SetPasswordForm, PasswordResetForm, UserLoginForm
 from .tokens import account_activation_token
 from .utilities import chinese_zodiac_sign
 
@@ -61,7 +60,7 @@ def activateEmail(request, user, to_email):
 @user_not_authenticated
 def loginUser(request):
     if request.method == "POST":
-        form = AuthenticationForm(request=request, data=request.POST)
+        form = UserLoginForm(request=request, data=request.POST)
         if form.is_valid():
             user = authenticate(
                 username = form.cleaned_data["username"],
@@ -72,10 +71,13 @@ def loginUser(request):
                 messages.success(request, f'Hello <b>{user.email}</b>! You have been logged in.')
                 return redirect("create_profile")
         else:
-            for error in list(form.errors.values()):
-                 messages.error(request, error)
+            for key, error in list(form.errors.items()):
+                if key == 'captcha' and error[0] == 'This field is required.':
+                    messages.error(request, "You must pass the reCAPTCHA test")
+                    continue
+                messages.error(request, error) 
                
-    form = AuthenticationForm()
+    form = UserLoginForm()
         
     return render(
         request=request,
@@ -188,7 +190,8 @@ def passwordResetRequest(request):
             return redirect('homepage')
 
         for key, error in list(form.errors.items()):
-                messages.error(request, error)
+            if key == 'captcha' and error[0] == 'This field is required.':
+                messages.error(request, "You must pass the reCAPTCHA test")
                 continue
 
     form = PasswordResetForm()
