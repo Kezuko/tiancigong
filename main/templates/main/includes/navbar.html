@@ -22,7 +22,7 @@
 						</li>
 						{% if user.is_authenticated %}
 						{% if user.is_staff %}
-						<li><a href="#">Search Tickets</a></li>
+						<li><a href="{% url 'order_search' %}">Search Tickets</a></li>
 						{% else %}
 						<li><a href="#">View Tickets</a></li>
 						{% endif %}

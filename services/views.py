@@ -5,6 +5,8 @@ from django.contrib import messages
 
 from users.models import Member
 from .forms import OrderForm
+from .filters import OrderFilter
+from .models import Orders
 
 @login_required
 def services(request):
@@ -26,5 +28,20 @@ def services(request):
         }
     )
     
+@login_required
+def orderSearch(request):
+    orders = Orders.objects.all()
+    
+    myFilter = OrderFilter(request.GET, queryset=orders)
+    orders = myFilter.qs
+    
+    return render(
+        request=request,
+        template_name = "services/orderSearch.html",
+        context={
+            "orders": orders,
+            "myFilter": myFilter
+        }
+    )
     
    

@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'users',
     'crispy_forms',
     'services',
-    'captcha'
+    'captcha',
+    'django_filters'
 ]
 
 RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')

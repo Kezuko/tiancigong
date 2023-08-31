@@ -1,0 +1,40 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row">
+	<div class="col-xs-6 col-xs-offset-3">
+		<form method="get">
+		{{myFilter.form}}
+		<button class="btn btn-primary" type="submit">Search</button>
+		</form>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-6 col-xs-offset-3">
+		<div class="content-section">
+			<table>
+			<tr>
+				<th> Member ID</th>
+				<th> Name</th>
+				<th> Order Type</th>
+			</tr>
+			{% if orders %}
+			{% for order in orders %}
+				</tr>
+					<td>{{order.account.member_id}}</td>
+					<td>{{order.member.eng_name}}</td>
+					<td>{{order.order_type}}</td>
+				</tr>
+			{% endfor %}
+			{% endif %}
+			</table>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+
+
