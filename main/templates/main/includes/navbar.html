@@ -27,7 +27,7 @@
 						<li><a href="#">View Tickets</a></li>
 						{% endif %}
 						{% endif %}
-						<li><a href="#">Services</a></li>
+						<li><a href="{% url 'services' %}">Services</a></li>
 						<li><a href="#">Gallery</a></li>
 						<li><a href="#">Contact Us</a></li>
 					</ul>
@@ -50,7 +50,7 @@
 							<ul class="dropdown-menu">
 								{% if member_profile %}
 								{% for member in member_profile %}
-								<li><a href="{% url 'services' eng_name=member.eng_name %}">{{ member.eng_name }}</a></li>
+								<li><a href="{% url 'services' %}">{{ member.eng_name }}</a></li>
 								{% endfor %}
 								{% else %}
 								<li><a href="{% url 'create_profile' %}"> Create Profile </a></li>

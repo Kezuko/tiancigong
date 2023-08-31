@@ -1,0 +1,46 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row">
+	<div class="col-xs-6 col-xs-offset-3">
+		<div class="content-section">
+			<form method="POST">
+				{% csrf_token %}
+				<fieldset class="form-group">
+					{{form.order_type}}
+					<input type="hidden" name="member_id" id="id_member_id" value="{{ member_id }}">
+					<label for="id_member_eng_name" class=" requiredField"> Member*</label>
+					<div>
+						<select name="member_eng_name" class="select form_control" required id="id_member_eng_name">
+						{% if member_profile %}
+						{% for member in member_profile %}
+							<option value="{{ member.eng_name }}">{{member.eng_name}} | {{member.chi_name}}</option>
+						{% endfor %}
+						{% endif %}
+						</select>
+					</div>
+				</fieldset>
+				
+				<!--{% if messages %}
+					{% for message in messages %}
+						<div class="alert">
+						{{ message }}
+						</div>
+					{% endfor %}
+				{% endif %}-->
+
+				
+				<div class="form-group">
+					<button class="btn btn-outline-info" type="submit">Order Test</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+
+

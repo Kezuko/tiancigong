@@ -4,8 +4,7 @@ from django.contrib.auth.forms import UserCreationForm, SetPasswordForm, Passwor
 from django.forms import ModelForm
 from django.utils import timezone
 
-from .models import Member
-from .models import AccountUser
+from .models import Member, AccountUser
 
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV2Checkbox
