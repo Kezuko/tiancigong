@@ -16,6 +16,7 @@
 		<div class="content-section">
 			<table>
 			<tr>
+				<th> Order Number</th>
 				<th> Member ID</th>
 				<th> Name</th>
 				<th> Order Type</th>
@@ -24,8 +25,13 @@
 			{% if orders %}
 			{% for order in orders %}
 				</tr>
+					<td>{{order.order_number}}</td>
 					<td>{{order.account.member_id}}</td>
-					<td>{{order.member.eng_name}}</td>
+					<td>
+					{% for member in order.member.all %}
+						{{member}} </br>
+					{% endfor %}
+					</td>
 					<td>{{order.order_type}}</td>
 					<td>{{order.status}}</td>
 					<td><button> Print</button>
