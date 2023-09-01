@@ -19,6 +19,7 @@
 				<th> Member ID</th>
 				<th> Name</th>
 				<th> Order Type</th>
+				<th> Status</th>
 			</tr>
 			{% if orders %}
 			{% for order in orders %}
@@ -26,6 +27,7 @@
 					<td>{{order.account.member_id}}</td>
 					<td>{{order.member.eng_name}}</td>
 					<td>{{order.order_type}}</td>
+					<td>{{order.status}}</td>
 				</tr>
 			{% endfor %}
 			{% endif %}
