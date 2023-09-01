@@ -5,6 +5,7 @@ from django.forms import ModelForm
 from django.utils import timezone
 
 from .models import Member, AccountUser
+from .utilities import generate_membership
 
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV2Checkbox
@@ -28,6 +29,10 @@ class UserRegistrationForm(UserCreationForm):
     def save(self, commit=True):
         user = super(UserRegistrationForm, self).save(commit=False)
         user.email = self.cleaned_data['email']
+        member_id = generate_membership()
+        while(AccountUser.objects.filter(member_id=member_id)):
+            member_id = generate_membership()
+        user.member_id = member_id
         if commit:
             user.save()
         return user
@@ -41,14 +46,13 @@ class UserLoginForm(AuthenticationForm):
 class ProfileForm(ModelForm):
     class Meta:
         model = Member
-        fields = ["eng_name", "chi_name", "eng_date_of_birth"]
+        fields = ["name", "eng_date_of_birth"]
         widgets = {
             'eng_date_of_birth': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
         }
         labels = {
             'eng_date_of_birth': 'Date-of-birth (eng)',
-            'eng_name': 'English Name',
-            'chi_name': 'Chinese Name'
+            'name': 'Name'
         }
         
     def clean_eng_date_of_birth(self):

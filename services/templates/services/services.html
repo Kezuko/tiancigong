@@ -11,12 +11,12 @@
 				<fieldset class="form-group">
 					{{form.order_type}}
 					<input type="hidden" name="member_id" id="id_member_id" value="{{ member_id }}">
-					<label for="id_member_eng_name" class=" requiredField"> Member*</label>
+					<label for="id_member_name" class=" requiredField"> Member*</label>
 					<div>
-						<select name="member_eng_name" class="select form_control" required id="id_member_eng_name">
+						<select name="member_name" class="select form_control" id="id_member_name" multiple required>
 						{% if member_profile %}
 						{% for member in member_profile %}
-							<option value="{{ member.eng_name }}">{{member.eng_name}} | {{member.chi_name}}</option>
+							<option value="{{ member.name }}"> {{member.name}}</option>
 						{% endfor %}
 						{% endif %}
 						</select>
