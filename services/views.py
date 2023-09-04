@@ -58,9 +58,7 @@ def renderDocument(request):
                     "name": form.cleaned_data.get('member_name')
                 }
     #doc = DocxTemplate('services/templates/docx/taisui.docx')
-    
-    
-    
+
     response = HttpResponse(content_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document")
     response["Content-Disposition"] = 'filename="your_doc_name' + str(datetime.datetime.now()) + '.docx"'
     doc.render(context)
