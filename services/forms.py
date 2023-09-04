@@ -44,4 +44,12 @@ class OrderForm(ModelForm):
                 order.member.add(Member.objects.get(account__member_id=cleaned_data['member_id'], name=name))
         return order
 
+class AdminForm(OrderForm):
+    order_number = forms.CharField(max_length=36)
+    status = forms.CharField(max_length=50)
+
+    def __init__(self, request, *args, **kwargs):
+        super(AdminForm, self).__init__(request, *args, **kwargs)
+
+    
         

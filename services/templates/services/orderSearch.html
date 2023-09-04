@@ -24,20 +24,28 @@
 			</tr>
 			{% if orders %}
 			{% for order in orders %}
-				</tr>
-					<td>{{order.order_number}}</td>
-					<td>{{order.account.member_id}}</td>
-					<td>
-					{% for member in order.member.all %}
-						{{member}} </br>
-					{% endfor %}
-					</td>
-					<td>{{order.order_type}}</td>
-					<td>{{order.status}}</td>
-					<td><button> Print</button>
-					<td><button> Preview</button>
-					<td><button> Completed</button>
-				</tr>
+				<form method="POST" action="{% url 'render_document' %}">
+					{% csrf_token %}
+					</tr>
+						<td>{{order.order_number}}</td>
+						<input type="hidden" name="order_number" id="id_order_number" value="{{ order.order_number }}">
+						<td>{{order.account.member_id}}</td>
+						<input type="hidden" name="member_id" id="id_member_id" value="{{ order.account.member_id }}">
+						<td>
+						{% for member in order.member.all %}
+							<input type="hidden" name="member_name" value="{{ member }}">
+							{{member}} </br>
+						{% endfor %}
+						</td>
+						<td>{{order.order_type}}</td>
+						<input type="hidden" name="order_type" value="{{ order.order_type }}">
+						<td>{{order.status}}</td>
+						<input type="hidden" name="status" value="{{ order.status }}">
+						<td><button> Print</button></td>
+						<td><button class="btn btn-outline-info" type="submit"> Preview</button></td>
+						<td><button> Completed</button></td>
+					</tr>
+				</form>
 			{% endfor %}
 			{% endif %}
 			</table>
