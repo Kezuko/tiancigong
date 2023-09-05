@@ -9,6 +9,7 @@ from .utilities import generate_membership
 
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV2Checkbox
+import re
 
 class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField(label='Email', help_text='Enter a valid email address', required=True)
@@ -16,7 +17,12 @@ class UserRegistrationForm(UserCreationForm):
     
     class Meta:
         model = AccountUser
-        fields = ['email', 'password1', 'password2','address' ,'zip_code', 'unit_number']
+        fields = ['email', 'password1', 'password2','street_name','zip_code','unit_number','block_number']
+    
+    def __init__(self, *args, **kwargs):
+        super(UserRegistrationForm, self).__init__(*args, **kwargs)
+        self.fields['unit_number'].required = False
+        self.fields['block_number'].required = False
         
     def clean_email(self):
         email = self.cleaned_data['email']
@@ -24,8 +30,18 @@ class UserRegistrationForm(UserCreationForm):
             AccountUser.objects.get(email=email)
         except AccountUser.DoesNotExist:
             return email
-        raise forms.ValidationError('Please use another Email, that is already taken')  
-     
+        raise forms.ValidationError('Please use another Email, that is already taken')
+        
+    def clean_unit_number(self):
+        unit_number = self.cleaned_data.get('unit_number')
+        if unit_number == "#N/A" or unit_number == "":
+            return unit_number
+            
+        r = re.compile('#\d{2}-\d{2,3}')
+        if r.match(unit_number) is None:
+            raise forms.ValidationError('Please enter valid unit number in this format #01-12 or leave as default #N/A')
+        return unit_number
+
     def save(self, commit=True):
         user = super(UserRegistrationForm, self).save(commit=False)
         user.email = self.cleaned_data['email']

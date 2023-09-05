@@ -42,8 +42,8 @@
 						<td>{{order.status}}</td>
 						<input type="hidden" name="status" value="{{ order.status }}">
 						<td><button> Print</button></td>
-						<td><button class="btn btn-outline-info" name="submit" type="submit"> Preview</button></td>
-						<td><button class="btn btn-outline-info" name="complete" type="submit"> Completed</button></td>
+						<td><button class="btn btn-outline-info" name="action" value="preview" type="submit"> Preview</button></td>
+						<td><button class="btn btn-outline-info" name="action" value="completed" type="submit"> Completed</button></td>
 					</tr>
 				</form>
 			{% endfor %}

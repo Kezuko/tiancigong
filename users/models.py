@@ -11,14 +11,15 @@ class AccountUser(AbstractBaseUser, PermissionsMixin):
     member_id = models.CharField(primary_key=True, default=generate_membership, editable=False, max_length=18)
     email = models.EmailField(null=False, blank=False, unique=True)
     zip_code = models.CharField(max_length=6,null=False, blank=False)
-    address = models.CharField(max_length=500, null=False, blank=False)
-    unit_number = models.CharField(max_length=40, null=False, blank=False)
+    street_name = models.CharField(max_length=500, null=False, blank=False)
+    block_number = models.CharField(max_length=10)
+    unit_number = models.CharField(max_length=40, default='#')
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     created_date = models.DateTimeField(default=timezone.now)
     modified_date = models.DateTimeField(default=timezone.now)
     
-    REQUIRED_FIELDS = ['password','address','unit_number','zip_code']
+    REQUIRED_FIELDS = ['password','street_name','zip_code']
     USERNAME_FIELD = 'email'
     
     objects = AccountUserManager()

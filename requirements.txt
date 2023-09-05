@@ -16,3 +16,4 @@ tensorflow-estimator==2.7.0
 django-recaptcha==3.0.0
 geopy==2.3.0
 django-filter==23.2
+docxtpl==0.16.7

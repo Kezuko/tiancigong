@@ -10,11 +10,8 @@ class AccountUserManager(BaseUserManager):
         if not extra_fields.get('zip_code'):
             raise ValueError('Users require a postal code')
             
-        if not extra_fields.get('address'):
+        if not extra_fields.get('street_name'):
             raise ValueError('Users require an address')
-        
-        if not extra_fields.get('unit_number'):
-            raise ValueError('Users require a unit number')
             
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)

@@ -18,7 +18,6 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.core.mail import EmailMessage
 
-#from geopy.geocoders import Nominatim
 from lunardate import LunarDate
 
 def activate(request, uidb64, token):
@@ -90,11 +89,8 @@ def register(request):
     if request.method == "POST":
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            #geolocator = Nominatim(user_agent="geoapiExercises")
-            #address = geolocator.geocode(form.cleaned_data["zip_code"])
             user = form.save(commit=False)
             user.is_active=False
-            #user.address = address
             user.save()
             activateEmail(request, user, form.cleaned_data.get('email'))
             return redirect('homepage')

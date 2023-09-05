@@ -30,7 +30,7 @@ def services(request):
             "member_id": request.user.member_id
         }
     )
-    
+  
 @login_required
 def orderSearch(request):
     orders = Orders.objects.all()
@@ -52,16 +52,41 @@ def renderDocument(request):
     if request.method == "POST":
         form = AdminForm(request=request, data=request.POST)
         if form.is_valid():
-            if form.cleaned_data.get("order_type") == "拜孔子":
-                doc = DocxTemplate('services/templates/docx/baikongzi.docx')
-                context = {
-                    "name": form.cleaned_data.get('member_name')
-                }
-    #doc = DocxTemplate('services/templates/docx/taisui.docx')
-
-    response = HttpResponse(content_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document")
-    response["Content-Disposition"] = 'filename="your_doc_name' + str(datetime.datetime.now()) + '.docx"'
-    doc.render(context)
-    doc.save(response)
+            print(request.POST.get('action'))
+            if request.POST.get('action') == "preview":
+                response = HttpResponse(content_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+                if form.cleaned_data.get("order_type") == "安太岁":
+                    doc = DocxTemplate('services/templates/docx/antaisui.docx')
+                    context = {
+                        "unit": request.user.unit_number,
+                        "block": request.user.block_number,
+                        "name": form.cleaned_data.get('member_name')
+                    }
+                    response["Content-Disposition"] = 'filename="ats' + str(datetime.datetime.now()) + '.docx"'
+                elif form.cleaned_data.get("order_type") == "拜孔子":
+                    doc = DocxTemplate('services/templates/docx/antaisui.docx')
+                    context = {
+                        "unit": request.user.unit_number,
+                        "block": request.user.block_number,
+                        "name": form.cleaned_data.get('member_name')
+                    }
+                    response["Content-Disposition"] = 'filename="bkz' + str(datetime.datetime.now()) + '.docx"'
+                elif form.cleaned_data.get("order_type") == "补财库":
+                    doc = DocxTemplate('services/templates/docx/pucaiku.docx')
+                    context = {
+                        "unit": request.user.unit_number,
+                        "block": request.user.block_number,
+                        "name": form.cleaned_data.get('member_name')
+                    }
+                    response["Content-Disposition"] = 'filename="pck' + str(datetime.datetime.now()) + '.docx"'
+                doc.render(context)
+                doc.save(response)
+                
+                return response
+            else:
+                order = Orders.objects.filter(order_number=form.cleaned_data['order_number']).update(status="Completed")
+                return redirect('order_search')
+                
+                
+                
     
-    return response
