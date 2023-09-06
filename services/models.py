@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 class Orders(models.Model):
     order_choices = (
@@ -20,6 +21,7 @@ class Orders(models.Model):
     order_type = models.CharField(max_length=255, choices=order_choices)
     status = models.CharField(max_length=50, choices=progress, default="In Progress")
     order_number = models.CharField(max_length=12, unique=True)
+    created_date = models.DateTimeField(default=timezone.now)
     
     def get_order_choices(self):
         return self.order_choices
