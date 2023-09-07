@@ -152,5 +152,3 @@ cython_debug/
 #.idea/
 
 .env
-
-services/templates/docx
